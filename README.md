@@ -1,11 +1,11 @@
 # serverless-docker-hooks
 
-Run commands in docker containers as serverless hooks.
+Run commands in docker containers as [serverless](https://serverless.com/) hooks.
 Requires `docker` to be installed and running.
 
 ## Install
 ```
-npm install serverless-docker-hooks
+npm install --save-dev serverless-docker-hooks
 ```
 
 ## Usage
@@ -17,10 +17,10 @@ custom:
   dockerHooks:
     before:deploy:deploy:
       image: ubuntu
-      command:
+      command: # Optional
         - 'bash' 
         - '-c'
         - 'ls local'
-      volumes:
+      volumes: # Optional
         - './:/local'
 ```
