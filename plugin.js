@@ -1,4 +1,4 @@
-const { runContainer } = require('./docker');
+const { runContainer } = require('./src/docker');
 
 class ServerlessDockerHooks {
 
@@ -7,10 +7,8 @@ class ServerlessDockerHooks {
         this.options = options;
 
         const { dockerHooks } = serverless.service.custom;
-
         this.hooks = Object.keys(dockerHooks).reduce((hooks, hook) => {
-            const { image, command, volumes } = dockerHooks[hook];
-            hooks[hook] = () => runContainer(image, command, volumes);
+            hooks[hook] = () => runContainer(dockerHooks[hook]);
             return hooks;
         }, {});
     }
