@@ -12,14 +12,11 @@ const pullImage = async (image) => {
 
 const runContainer = async (image, command, config) => {
     await pullImage(image);
-    console.dir(Array.isArray(command) ? command : [command], { colors: true })
     await docker.run(image, Array.isArray(command) ? command : [command], process.stdout, {
         HostConfig: {
             AutoRemove: true
         }
     });
 };
-
-// runContainer('ubuntu', ['bash', '-c', 'uname -a'], {});
 
 module.exports = { runContainer };
