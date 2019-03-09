@@ -9,6 +9,9 @@ npm install serverless-docker-hooks
 
 ## Usage
 ```yml
+plugins:
+  - serverless-docker-hooks
+
 custom:
   dockerHooks:
     before:deploy:deploy:
