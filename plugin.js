@@ -9,8 +9,8 @@ class ServerlessDockerHooks {
         const { dockerHooks } = serverless.service.custom;
 
         this.hooks = Object.keys(dockerHooks).reduce((hooks, hook) => {
-            const { image, command } = dockerHooks[hook];
-            hooks[hook] = () => runContainer(image, command);
+            const { image, command, volumes } = dockerHooks[hook];
+            hooks[hook] = () => runContainer(image, command, volumes);
             return hooks;
         }, {});
     }

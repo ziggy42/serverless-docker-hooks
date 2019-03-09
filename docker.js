@@ -2,6 +2,15 @@ const Docker = require('dockerode');
 
 const docker = new Docker();
 
+const normalizeBinds = (binds) => binds.map((volumeBinding) => {
+    let [src, dest] = volumeBinding.split(':');
+    if (src.startsWith('.')) {
+        src = process.cwd() + src.substring(1);
+    }
+
+    return `${src}:${dest}`;
+});
+
 const pullImage = async (image) => {
     const imageName = image.includes(':') ? image : `${image}:latest`;
     const stream = await docker.pull(imageName);
@@ -10,11 +19,12 @@ const pullImage = async (image) => {
     });
 };
 
-const runContainer = async (image, command, config) => {
+const runContainer = async (image, command, volumes) => {
     await pullImage(image);
     await docker.run(image, Array.isArray(command) ? command : [command], process.stdout, {
         HostConfig: {
-            AutoRemove: true
+            AutoRemove: true,
+            Binds: volumes ? normalizeBinds(volumes) : []
         }
     });
 };
