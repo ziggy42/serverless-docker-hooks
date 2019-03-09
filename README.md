@@ -1,6 +1,6 @@
 # serverless-docker-hooks
 
-Run commands in docker containers as serverless hooks
+Run commands in docker containers as serverless hooks.
 
 ## Install
 ```
