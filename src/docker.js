@@ -25,7 +25,7 @@ const runContainer = async ({ image, command, volumes }) => {
         await pullImage(imageName);
     }
 
-    await docker.run(image, Array.isArray(command) ? command : [command], process.stdout, {
+    await docker.run(imageName, command, process.stdout, {
         HostConfig: {
             AutoRemove: true,
             Binds: volumes ? normalizeBinds(volumes) : []
